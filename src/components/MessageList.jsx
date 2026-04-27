@@ -1,20 +1,24 @@
 import React, { useRef, useEffect } from 'react';
 
 const MessageList = ({ messages, isTyping }) => {
-  const endRef = useRef(null);
-  const isFirstRender = useRef(true);
+  const containerRef = useRef(null);
+  const hasUserInteracted = useRef(false);
 
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
+    // Ne pas scroller au chargement initial (welcome message)
+    if (!hasUserInteracted.current) {
+      hasUserInteracted.current = messages.length > 1;
       return;
     }
-    
-    endRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages.length, isTyping]);
+
+    // Scroller uniquement à l'intérieur du conteneur, jamais la page
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [messages.length]);
 
   return (
-    <div className="messages">
+    <div className="messages" ref={containerRef}>
       {messages.map((msg, idx) => (
         <div key={idx} className={`mrow ${msg.role}`}>
           <div className={`mav ${msg.role}`}>
@@ -38,8 +42,6 @@ const MessageList = ({ messages, isTyping }) => {
           </div>
         </div>
       )}
-
-      <div ref={endRef} />
     </div>
   );
 };

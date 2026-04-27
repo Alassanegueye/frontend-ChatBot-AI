@@ -13,10 +13,18 @@ import './App.css';
 function App() {
   const { messages, busy, sendMessage, addWelcomeMessage } = useChat();
 
-  // welcome message
   useEffect(() => {
+    const htmlElement = document.documentElement;
+    const originalScrollBehavior = htmlElement.style.scrollBehavior;
+    htmlElement.style.scrollBehavior = 'auto';
+    
     addWelcomeMessage();
+    
     window.scrollTo(0, 0);
+    
+    setTimeout(() => {
+      htmlElement.style.scrollBehavior = originalScrollBehavior;
+    }, 100);
   }, []);
 
   return (

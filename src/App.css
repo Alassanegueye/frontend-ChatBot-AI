@@ -1,30 +1,37 @@
 html, body {
   height: 100%;
   overflow-x: hidden;
+  overflow-y: auto;
+  /* scroll-behavior: smooth retiré pour éviter le scroll auto au chargement */
+}
+
+/* Classe ajoutée dynamiquement après le premier chargement */
+html.smooth-scroll, 
+html.smooth-scroll body {
   scroll-behavior: smooth;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ========================= ROOT ========================= */
 #root {
   font-family: 'DM Sans', sans-serif;
   background: #08090d;
   color: #c8cad4;
   min-height: 100vh;
   overflow-x: hidden;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 
+/* ========================= WRAP ========================= */
 .wrap {
   max-width: 820px;
   margin: 0 auto;
   padding: 0 28px 80px;
   min-height: 100vh;
-
 }
 
 /* ========================= HERO ========================= */
@@ -79,7 +86,7 @@ html, body {
   min-height: 48px;
 }
 
-/* ========================= STACK BADGES ========================= */
+/* ========================= BADGES ========================= */
 .stack-badges {
   display: flex;
   flex-wrap: wrap;
@@ -102,7 +109,7 @@ html, body {
 
 .badge:hover { opacity: 1; }
 
-/* ========================= CTA ========================= */
+/* ========================= BUTTONS ========================= */
 .cta-row {
   display: flex;
   gap: 10px;
@@ -122,7 +129,6 @@ html, body {
   text-decoration: none;
   transition: all .18s;
   font-family: 'DM Sans', sans-serif;
-  letter-spacing: 0.02em;
   border: none;
 }
 
@@ -151,26 +157,10 @@ html, body {
   opacity: .7;
 }
 
-.tw-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 0.9em;
-  background: #c8a96e;
-  margin-left: 2px;
-  vertical-align: text-bottom;
-  animation: cblink 1s step-end infinite;
-}
-
-@keyframes cblink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
 /* ========================= CHAT ========================= */
 .chat-section {
   padding: 40px 0 0;
-  scroll-margin-top: 40px;
-
+  scroll-margin-top: 80px;
 }
 
 .chat-top {
@@ -246,7 +236,7 @@ html, body {
 
 /* ========================= MESSAGES ========================= */
 .messages {
-  height: 420px;
+  max-height: 420px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -255,9 +245,18 @@ html, body {
   scroll-behavior: smooth;
 }
 
-.messages::-webkit-scrollbar { width: 3px; }
-.messages::-webkit-scrollbar-track { background: transparent; }
-.messages::-webkit-scrollbar-thumb { background: #1e2028; border-radius: 3px; }
+.messages::-webkit-scrollbar {
+  width: 3px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.messages::-webkit-scrollbar-thumb {
+  background: #1e2028;
+  border-radius: 3px;
+}
 
 .mrow {
   display: flex;
@@ -267,10 +266,12 @@ html, body {
 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
-.mrow.user { flex-direction: row-reverse; }
+.mrow.user {
+  flex-direction: row-reverse;
+}
 
 .mav {
   width: 28px;
@@ -286,8 +287,15 @@ html, body {
   border: 1px solid #1a1c24;
 }
 
-.mav.ai   { color: #c8a96e; border-color: #2a2418; }
-.mav.user { color: #5a5e6e; border-color: #1a1c24; }
+.mav.ai {
+  color: #c8a96e;
+  border-color: #2a2418;
+}
+
+.mav.user {
+  color: #5a5e6e;
+  border-color: #1a1c24;
+}
 
 .mbub {
   max-width: 78%;
@@ -314,14 +322,16 @@ html, body {
   border-top-right-radius: 3px;
 }
 
-.mbub strong { color: #c8cad4; font-weight: 500; }
+.mbub strong {
+  color: #c8cad4;
+  font-weight: 500;
+}
 
 /* ========================= TYPING ========================= */
 .typing-bub {
   display: flex;
   gap: 5px;
   align-items: center;
-  padding: 14px 18px;
 }
 
 .tdot {
@@ -337,11 +347,13 @@ html, body {
 
 @keyframes td {
   0%, 80%, 100% { transform: translateY(0); background: #2a2c38; }
-  40%           { transform: translateY(-5px); background: #c8a96e; }
+  40% { transform: translateY(-5px); background: #c8a96e; }
 }
 
 /* ========================= INPUT ========================= */
-.input-area { padding-top: 16px; }
+.input-area {
+  padding-top: 16px;
+}
 
 .input-wrap {
   display: flex;
@@ -354,7 +366,9 @@ html, body {
   transition: border-color .2s;
 }
 
-.input-wrap:focus-within { border-color: #2a2418; }
+.input-wrap:focus-within {
+  border-color: #2a2418;
+}
 
 .chat-textarea {
   flex: 1;
@@ -373,7 +387,9 @@ html, body {
   padding: 2px 0;
 }
 
-.chat-textarea::placeholder { color: #2a2c38; }
+.chat-textarea::placeholder {
+  color: #2a2c38;
+}
 
 .send-btn {
   width: 34px;
@@ -392,8 +408,14 @@ html, body {
   font-weight: 700;
 }
 
-.send-btn:hover:not(:disabled) { background: #d4b87e; }
-.send-btn:disabled { opacity: .3; cursor: not-allowed; }
+.send-btn:hover:not(:disabled) {
+  background: #d4b87e;
+}
+
+.send-btn:disabled {
+  opacity: .3;
+  cursor: not-allowed;
+}
 
 /* ========================= SUGGESTIONS ========================= */
 .sep {
@@ -713,7 +735,12 @@ html, body {
   letter-spacing: -0.01em;
 }
 
-.flinks { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+.flinks {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
 .flink {
   color: #2e3040;
@@ -724,7 +751,9 @@ html, body {
   transition: color .15s;
 }
 
-.flink:hover { color: #c8a96e; }
+.flink:hover {
+  color: #c8a96e;
+}
 
 .ftag {
   font-size: 12px;
@@ -733,4 +762,6 @@ html, body {
   letter-spacing: 0.01em;
 }
 
-.ftag span { color: #c8a96e; }
+.ftag span {
+  color: #c8a96e;
+}
