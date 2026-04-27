@@ -4,10 +4,8 @@ const MessageList = ({ messages, isTyping }) => {
   const endRef = useRef(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      endRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 50);
-  }, [messages, isTyping]);
+  endRef.current?.scrollIntoView({ behavior: 'smooth' });
+}, [messages.length, isTyping]);
 
   return (
     <div className="messages">

@@ -18,10 +18,6 @@ function App() {
     addWelcomeMessage();
   }, []);
 
-  useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "instant" });
-  }, [messages]);
-
   return (
     <div id="pr">
       <div className="wrap">
