@@ -14,6 +14,7 @@ function App() {
   const { messages, busy, sendMessage, addWelcomeMessage } = useChat();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     addWelcomeMessage();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
