@@ -7,7 +7,6 @@ export const useChat = () => {
   const [busy, setBusy] = useState(false);
   const welcomeSentRef = useRef(false);
 
-  // Historique brut envoyé au backend (format Claude : role/content)
   const historyRef = useRef([]);
 
   const addMessage = useCallback((content, role) => {
@@ -24,10 +23,9 @@ export const useChat = () => {
       "Je suis ici pour répondre avec précision. Cela inclut ses forces et ses faiblesses.\n\n" +
       "Posez vos questions.";
 
-    setTimeout(() => {
-      addMessage(welcomeMsg, 'ai');
-      historyRef.current.push({ role: 'assistant', content: welcomeMsg });
-    }, 400);
+    addMessage(welcomeMsg, 'ai');
+    historyRef.current.push({ role: 'assistant', content: welcomeMsg });
+
   }, [addMessage]);
 
   const sendMessage = useCallback(async (query) => {
@@ -35,12 +33,11 @@ export const useChat = () => {
 
     const userMsg = query.trim();
     setBusy(true);
+
     addMessage(userMsg, 'user');
 
-    // Snapshot de l'historique AVANT le message courant
     const historySnapshot = [...historyRef.current];
 
-    // Ajouter le message user à l'historique
     historyRef.current.push({ role: 'user', content: userMsg });
 
     try {
@@ -66,6 +63,7 @@ export const useChat = () => {
 
     } catch (err) {
       let errMsg;
+
       if (err.message.includes('fetch') || err.message.includes('Failed')) {
         errMsg =
           "Serveur inaccessible.\n\n" +
@@ -74,8 +72,9 @@ export const useChat = () => {
       } else {
         errMsg = `Erreur : ${err.message}`;
       }
+
       addMessage(errMsg, 'ai');
-      // Retirer le message user raté de l'historique
+
       historyRef.current.pop();
     }
 
@@ -86,8 +85,16 @@ export const useChat = () => {
     setMessages([]);
     historyRef.current = [];
     welcomeSentRef.current = false;
-    setTimeout(() => addWelcomeMessage(), 200);
+
+    addWelcomeMessage();
   }, [addWelcomeMessage]);
 
-  return { messages, busy, sendMessage, addMessage, addWelcomeMessage, resetChat };
+  return {
+    messages,
+    busy,
+    sendMessage,
+    addMessage,
+    addWelcomeMessage,
+    resetChat
+  };
 };
