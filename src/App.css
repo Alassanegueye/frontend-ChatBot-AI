@@ -1,3 +1,8 @@
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 * {
   margin: 0;
   padding: 0;
@@ -10,12 +15,16 @@
   color: #c8cad4;
   min-height: 100vh;
   overflow-x: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .wrap {
   max-width: 820px;
   margin: 0 auto;
   padding: 0 28px 80px;
+  min-height: 100vh;
+
 }
 
 /* ========================= HERO ========================= */
@@ -160,6 +169,8 @@
 /* ========================= CHAT ========================= */
 .chat-section {
   padding: 40px 0 0;
+  scroll-margin-top: 40px;
+
 }
 
 .chat-top {

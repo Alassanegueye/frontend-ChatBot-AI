@@ -13,10 +13,14 @@ import './App.css';
 function App() {
   const { messages, busy, sendMessage, addWelcomeMessage } = useChat();
 
+  // welcome message
   useEffect(() => {
-    window.scrollTo(0, 0);
     addWelcomeMessage();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [messages]);
 
   return (
     <div id="pr">
@@ -25,11 +29,13 @@ function App() {
         <Experience />
         <Education />
         <WitnessIntro />
+
         <ChatSection
           messages={messages}
           busy={busy}
           onSendMessage={sendMessage}
         />
+
         <Suggestions onSendMessage={sendMessage} />
         <TestSection onSendMessage={sendMessage} />
         <Footer />
