@@ -16,10 +16,11 @@ function App() {
   // welcome message
   useEffect(() => {
     addWelcomeMessage();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
-    <div id="pr">
+    <div id="root">
       <div className="wrap">
         <Hero />
         <Experience />

@@ -2,10 +2,16 @@ import React, { useRef, useEffect } from 'react';
 
 const MessageList = ({ messages, isTyping }) => {
   const endRef = useRef(null);
+  const isFirstRender = useRef(true);
 
   useEffect(() => {
-  endRef.current?.scrollIntoView({ behavior: 'smooth' });
-}, [messages.length, isTyping]);
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages.length, isTyping]);
 
   return (
     <div className="messages">
