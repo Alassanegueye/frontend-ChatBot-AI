@@ -5,7 +5,7 @@ const Footer = () => (
     <div className="footer-name">Alassane Gueye</div>
     <div className="flinks">
       <a
-        href="https://linkedin.com/in/alassane-gueye"
+        href="https://www.linkedin.com/in/alassane-gueye-216302283"
         target="_blank"
         rel="noopener noreferrer"
         className="flink"
@@ -13,14 +13,14 @@ const Footer = () => (
         LinkedIn
       </a>
       <a
-        href="https://github.com/alassane-gueye"
+        href="https://github.com/Alassanegueye"
         target="_blank"
         rel="noopener noreferrer"
         className="flink"
       >
         GitHub
       </a>
-      <a href="mailto:alassane.gueye@email.com" className="flink">
+      <a href="mailto:alassanegpro@gmail.com" className="flink">
         Contact
       </a>
     </div>

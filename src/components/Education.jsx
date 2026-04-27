@@ -4,7 +4,7 @@ const formations = [
   {
     degree: "Data Scientist Bootcamp",
     school: "GoMyCode",
-    period: "Sept. 2025 → Jan. 2026",
+    period: "Fév. 2026 → Août 2026",
     location: "Point-E, Dakar",
     highlights: ["Python, ML, Deep Learning, Streamlit", "Clustering, réseaux neuronaux, chatbots", "Web scraping, APIs, dashboards interactifs"],
   },
