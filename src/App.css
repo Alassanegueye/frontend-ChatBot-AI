@@ -1647,6 +1647,21 @@ img { display: block; max-width: 100%; }
   .hero__scroll { display: none; }
 }
 
+@media (max-width: 640px) {
+  .hero__cta, .contact__cta {
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero__cta .btn, .contact__cta .btn {
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
 @media (max-width: 520px) {
   .hero__photo {
     max-width: 280px;
@@ -2983,15 +2998,21 @@ img { display: block; max-width: 100%; }
   justify-content: center;
   align-items: center;
   max-width: 100%;
-  max-height: 72vh;
+  max-height: 78vh;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 .lightbox__media {
-  max-width: 90vw;
-  max-height: 70vh;
+  max-width: 92vw;
+  max-height: 76vh;
   object-fit: contain;
-  border-radius: 12px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: none !important;
+  outline: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
 }
 .lightbox__info {
   margin-top: 16px;
