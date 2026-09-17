@@ -1,82 +1,49 @@
 import React from 'react';
+import { experiences } from '../data/portfolio';
+import { useReveal } from '../hooks/useReveal';
+import SectionHeader from './SectionHeader';
 
-const experiences = [
-  {
-    role: "Co-fondateur & Développeur Full Stack",
-    company: "Africodex Digital",
-    period: "Mars 2026 → Présent",
-    location: "Dakar, Sénégal",
-    tasks: [
-      "Conception et développement d'applications web full stack (React, Node.js)",
-      "Solutions digitales adaptées aux besoins clients",
-      "Gestion technique et coordination de projets numériques",
-    ],
-  },
-  {
-    role: "Stagiaire Développeur IA Conversationnelle",
-    company: "Sonatel",
-    period: "Mai 2026 → Juil. 2026",
-    location: "Mermoz, Dakar",
-    tasks: [
-      "Développement de chatbots et voicebots en production",
-      "Automatisation des réponses et amélioration UX",
-      "Traitement automatique des demandes clients",
-    ],
-  },
-  {
-    role: "Stagiaire Data Analyst – Customer Experience",
-    company: "Sonatel",
-    period: "Jan. 2026 → Avr. 2026",
-    location: "Mermoz, Dakar",
-    tasks: [
-      "Analyse des données clients : tendances et points de friction",
-      "Rapports de satisfaction client et suivi des actions correctives",
-      "Recommandations basées sur les données à l'équipe CX",
-    ],
-  },
-  {
-    role: "Chargé de gestion administrative & relation client",
-    company: "Nutrivie",
-    period: "Nov. 2024 → Présent",
-    location: "Ouakam, Dakar",
-    tasks: [
-      "Gestion des commandes, suivi client et facturation",
-      "Coordination entre clients et équipes opérationnelles",
-    ],
-  },
-];
+const Experience = () => {
+  const [ref, shown] = useReveal();
 
-const Experience = () => (
-  <section className="timeline-section">
-    <div className="eyebrow" style={{ marginBottom: '24px' }}>
-      <span className="eyebrow-line" />
-      <span className="eyebrow-text">Expériences professionnelles</span>
-    </div>
-    <div className="timeline">
-      {experiences.map((exp, idx) => (
-        <div key={idx} className="timeline-item">
-          <div className="timeline-dot" />
-          <div className="timeline-content">
-            <div className="tl-header">
-              <div>
-                <h4 className="tl-role">{exp.role}</h4>
-                <span className="tl-company">{exp.company}</span>
+  return (
+    <section id="experience" className="section">
+      <div className="shell">
+        <SectionHeader
+          kicker="Expériences"
+          title="Du terrain au <em>produit</em>."
+          lead="Chaque expérience a renforcé ma capacité à concevoir, développer et livrer des solutions concrètes."
+        />
+
+        <div className="tl" ref={ref}>
+          {experiences.map((exp, i) => (
+            <div
+              className={`tl__item ${exp.current ? 'is-current' : ''} reveal ${shown ? 'is-in' : ''}`}
+              data-delay={i + 1}
+              key={i}
+            >
+              <div className="tl__dot" />
+              <div className="tl__top">
+                <div>
+                  <h3 className="tl__role">
+                    {exp.role}
+                    {exp.current && <span className="badge-now">PRÉSENT</span>}
+                  </h3>
+                  <span className="tl__company">{exp.company}</span>
+                </div>
+                <span className="tl__meta">{exp.period} — {exp.location}</span>
               </div>
-              <div className="tl-meta">
-                <span className="tl-period">{exp.period}</span>
-                <span className="tl-location">{exp.location}</span>
-              </div>
+              <ul className="tl__tasks">
+                {exp.tasks.map((t, j) => (
+                  <li key={j}>{t}</li>
+                ))}
+              </ul>
             </div>
-            <ul className="tl-tasks">
-              {exp.tasks.map((t, i) => (
-                <li key={i}>{t}</li>
-              ))}
-            </ul>
-          </div>
+          ))}
         </div>
-      ))}
-    </div>
-  </section>
-);
+      </div>
+    </section>
+  );
+};
 
 export default Experience;

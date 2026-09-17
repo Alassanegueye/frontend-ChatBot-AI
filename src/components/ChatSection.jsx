@@ -74,7 +74,7 @@ const ChatSection = ({ messages, busy, onSendMessage }) => {
           onClick={handleSend}
           disabled={busy || !inputValue.trim()}
         >
-          ↑
+          &uarr;
         </button>
       </div>
     </div>

@@ -1,34 +1,24 @@
 import React from 'react';
+import { profile, socials } from '../data/portfolio';
 
-const Footer = () => (
-  <footer className="footer">
-    <div className="footer-name">Alassane Gueye</div>
-    <div className="flinks">
-      <a
-        href="https://www.linkedin.com/in/alassane-gueye-216302283"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flink"
-      >
-        LinkedIn
-      </a>
-      <a
-        href="https://github.com/Alassanegueye"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="flink"
-      >
-        GitHub
-      </a>
-      <a href="mailto:alassanegpro@gmail.com" className="flink">
-        Contact
-      </a>
-    </div>
-    <p className="ftag">
-      Vous pouvez interroger son IA — ou{' '}
-      <span>directement le mettre à l'épreuve</span>.
-    </p>
-  </footer>
-);
+const Footer = () => {
+  const year = new Date().getFullYear();
+
+  return (
+    <footer className="footer">
+      <div className="shell" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '20px', flexWrap: 'wrap', width: '100%' }}>
+        <span className="footer__brand">{profile.name}</span>
+        <nav className="footer__links">
+          <a href={socials.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href={socials.github} target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={`mailto:${socials.email}`}>Email</a>
+          {socials.gitlab && (
+            <a href={socials.gitlab} target="_blank" rel="noopener noreferrer">GitLab</a>
+          )}
+        </nav>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;
