@@ -1,18 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowUpRight, Smartphone, Monitor } from './Icons';
+import Lightbox from './Lightbox';
 
 /**
  * ProjectDetail — fiche projet plein écran, ouverte par-dessus le portfolio.
- *
- * Volontairement sobre : les écrans d'abord, puis ce qu'est le projet,
- * pour qui il a été réalisé et avec quoi il est construit. Le contexte
- * métier appartient aux clients et n'apparaît pas ici.
- *
- * S'affiche quand l'URL porte le hash #projet/<id>. Se ferme avec Échap,
- * le bouton retour de la page ou le bouton « précédent » du navigateur.
  */
 
-const Galerie = ({ titre, Icone, ecrans, nom, ratioDefaut }) => (
+const Galerie = ({ titre, Icone, ecrans, nom, ratioDefaut, onOpenLightbox }) => (
   <section className="fiche__galerie">
     <h2 className="fiche__galerieTitre">
       <Icone size={17} /> {titre}
@@ -20,7 +14,7 @@ const Galerie = ({ titre, Icone, ecrans, nom, ratioDefaut }) => (
     </h2>
 
     <div className="fiche__ecrans">
-      {ecrans.map((e) => {
+      {ecrans.map((e, idx) => {
         const [w, h] = e.ratio || ratioDefaut;
         const paysage = w > h;
         return (
@@ -28,6 +22,8 @@ const Galerie = ({ titre, Icone, ecrans, nom, ratioDefaut }) => (
             className={`fiche__ecran ${paysage ? 'is-large' : ''}`}
             key={e.title}
             style={{ '--phone-ar': `${w} / ${h}`, '--screen-ar': `${w} / ${h}` }}
+            onClick={() => onOpenLightbox(ecrans, idx)}
+            title="Cliquer pour afficher en plein écran"
           >
             <div className={paysage ? 'screen' : 'phone'}>
               {e.type === 'video' ? (
@@ -48,25 +44,35 @@ const Galerie = ({ titre, Icone, ecrans, nom, ratioDefaut }) => (
 );
 
 const ProjectDetail = ({ project, onClose }) => {
-  // Échap ferme la fiche, et le fond ne défile pas derrière
+  const [lightboxState, setLightboxState] = useState({ isOpen: false, items: [], index: 0 });
+
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        if (lightboxState.isOpen) {
+          setLightboxState((prev) => ({ ...prev, isOpen: false }));
+        } else {
+          onClose();
+        }
+      }
     };
     document.addEventListener('keydown', onKey);
 
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-    window.scrollTo({ top: 0, behavior: 'auto' });
 
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = previousOverflow;
     };
-  }, [onClose]);
+  }, [onClose, lightboxState.isOpen]);
 
   const { links = {}, ratio = [768, 1376], wide = false, dashboard } = project;
   const livre = /livr/i.test(project.status || '');
+
+  const openLightbox = (items, index) => {
+    setLightboxState({ isOpen: true, items, index });
+  };
 
   return (
     <div
@@ -110,9 +116,10 @@ const ProjectDetail = ({ project, onClose }) => {
             ecrans={project.screens}
             nom={project.name}
             ratioDefaut={ratio}
+            onOpenLightbox={openLightbox}
           />
 
-          {/* Le back-office est présenté à part : c'est un produit en soi */}
+          {/* Le tableau de bord */}
           {dashboard && (
             <Galerie
               titre="Le tableau de bord"
@@ -120,6 +127,7 @@ const ProjectDetail = ({ project, onClose }) => {
               ecrans={dashboard.screens}
               nom={project.name}
               ratioDefaut={ratio}
+              onOpenLightbox={openLightbox}
             />
           )}
 
@@ -175,6 +183,13 @@ const ProjectDetail = ({ project, onClose }) => {
 
         </div>
       </div>
+
+      <Lightbox
+        items={lightboxState.items}
+        initialIndex={lightboxState.index}
+        isOpen={lightboxState.isOpen}
+        onClose={() => setLightboxState((prev) => ({ ...prev, isOpen: false }))}
+      />
     </div>
   );
 };

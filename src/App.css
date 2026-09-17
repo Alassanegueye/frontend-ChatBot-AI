@@ -2383,7 +2383,6 @@ img { display: block; max-width: 100%; }
   gap: 12px;
 }
 
-/* L'accroche : une bulle de parole au-dessus de la boule */
 .chat__accroche {
   position: relative;
   max-width: 220px;
@@ -2398,10 +2397,9 @@ img { display: block; max-width: 100%; }
   font-weight: 500;
   line-height: 1.45;
   text-align: left;
-  cursor: pointer;
-  transition: border-color .3s var(--ease), transform .3s var(--ease);
+  cursor: default;
+  pointer-events: none;
 }
-.chat__accroche:hover { border-color: var(--accent); transform: translateY(-2px); }
 /* La pointe de la bulle */
 .chat__accroche::after {
   content: "";
@@ -2911,4 +2909,121 @@ img { display: block; max-width: 100%; }
 /* Sur petit écran, la place manque : on s'en remet au champ de saisie */
 @media (max-width: 720px), (max-height: 720px) {
   .chat__questions { display: none; }
+}
+
+/* ============================================================
+   LIGHTBOX — Plein écran pour captures et vidéos
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(10, 15, 30, 0.94);
+  backdrop-filter: blur(16px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.lightbox__close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10002;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.lightbox__close:hover {
+  background: rgba(255, 255, 255, 0.25);
+  transform: scale(1.08);
+}
+.lightbox__nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10002;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.lightbox__nav:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-50%) scale(1.08);
+}
+.lightbox__nav--prev { left: 24px; }
+.lightbox__nav--next { right: 24px; }
+
+.lightbox__content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox__media-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  max-height: 72vh;
+}
+.lightbox__media {
+  max-width: 90vw;
+  max-height: 70vh;
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+.lightbox__info {
+  margin-top: 16px;
+  text-align: center;
+  color: #ffffff;
+  max-width: 600px;
+}
+.lightbox__counter {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: #93c5fd;
+  margin-bottom: 4px;
+}
+.lightbox__title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  color: #ffffff;
+}
+.lightbox__caption {
+  font-size: 13.5px;
+  color: #cbd5e1;
+  margin-top: 4px;
+}
+
+.pcar__slide, .fiche__ecran {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .lightbox__nav--prev { left: 10px; width: 44px; height: 44px; }
+  .lightbox__nav--next { right: 10px; width: 44px; height: 44px; }
+  .lightbox__close { top: 12px; right: 12px; width: 42px; height: 42px; }
 }

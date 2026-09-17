@@ -84,10 +84,8 @@ const ChatWidget = () => {
       <div className="chat__ancre">
         <AnimatePresence>
           {accroche && !ouvert && (
-            <motion.button
-              type="button"
+            <motion.div
               className="chat__accroche"
-              onClick={() => setOuvert(true)}
               initial={{ opacity: 0, y: 12, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 12, scale: 0.94 }}
@@ -104,7 +102,7 @@ const ChatWidget = () => {
                   {ACCROCHES[phrase]}
                 </motion.span>
               </AnimatePresence>
-            </motion.button>
+            </motion.div>
           )}
         </AnimatePresence>
 
